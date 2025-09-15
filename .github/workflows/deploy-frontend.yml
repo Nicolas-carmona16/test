@@ -1,10 +1,5 @@
-name: Frontend CI/CD
-on:
-  push:
-    branches: [main, dev]
-    paths:
-      - 'frontend/**'
-      - '.github/workflows/deploy-frontend.yml'
+name: CI/CD
+on: [push]
 
 env:
   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
@@ -46,9 +41,7 @@ jobs:
           node-version: '22'
       - name: Install vercel Cli
         run: npm install --global vercel@latest
-      - name: Clean Vercel config
-        run: rm -rf .vercel
-      - name: Pull Vercel Environmental Variables
+      - name: Pull Vercel Enviromental Variables
         run: vercel pull --yes --token=${{ secrets.VERCEL_TOKEN }}
       - name: Trigger Vercel Deployment
         run: vercel deploy --no-wait --token=${{ secrets.VERCEL_TOKEN }}
@@ -69,8 +62,6 @@ jobs:
           node-version: '22'
       - name: Install vercel Cli
         run: npm install --global vercel@latest
-      - name: Clean Vercel config
-        run: rm -rf .vercel
       - name: Pull Vercel Environmental Variables
         run: vercel pull --yes --token=${{ secrets.VERCEL_TOKEN }}
       - name: Trigger Vercel Deployment
