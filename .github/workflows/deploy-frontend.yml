@@ -46,6 +46,8 @@ jobs:
           node-version: '22'
       - name: Install vercel Cli
         run: npm install --global vercel@latest
+      - name: Clean Vercel config
+        run: rm -rf .vercel
       - name: Pull Vercel Environmental Variables
         run: vercel pull --yes --token=${{ secrets.VERCEL_TOKEN }}
       - name: Trigger Vercel Deployment
@@ -67,6 +69,8 @@ jobs:
           node-version: '22'
       - name: Install vercel Cli
         run: npm install --global vercel@latest
+      - name: Clean Vercel config
+        run: rm -rf .vercel
       - name: Pull Vercel Environmental Variables
         run: vercel pull --yes --token=${{ secrets.VERCEL_TOKEN }}
       - name: Trigger Vercel Deployment
