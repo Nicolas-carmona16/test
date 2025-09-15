@@ -35,9 +35,6 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/dev'
-    defaults:
-      run:
-        working-directory: ./frontend
     steps:
       - uses: actions/checkout@v3
       - name: use Node.js 22
@@ -47,18 +44,15 @@ jobs:
       - name: Install vercel Cli
         run: npm install --global vercel@latest
       - name: Pull Vercel Enviromental Variables
-        run: vercel pull --yes --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel pull --yes --token=${{ secrets.VERCEL_TOKEN }} --cwd ./frontend
       - name: Trigger Vercel Deployment
-        run: vercel deploy --no-wait --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel deploy --no-wait --token=${{ secrets.VERCEL_TOKEN }} --cwd ./frontend
 
   Deploy-Prodcution:
     name: Deploy to Vercel (Production)
     needs: build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    defaults:
-      run:
-        working-directory: ./frontend
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js 22
@@ -68,6 +62,6 @@ jobs:
       - name: Install vercel Cli
         run: npm install --global vercel@latest
       - name: Pull Vercel Environmental Variables
-        run: vercel pull --yes --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel pull --yes --token=${{ secrets.VERCEL_TOKEN }} --cwd ./frontend
       - name: Trigger Vercel Deployment
-        run: vercel deploy --prod --no-wait --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel deploy --prod --no-wait --token=${{ secrets.VERCEL_TOKEN }} --cwd ./frontend
